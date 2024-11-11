@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock Practice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            background-color: #2c3e50;
+            color: #e0e0e0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .clock-img {
+            width: 300px;
+            height: 300px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .input-section {
+            margin-top: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .button {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #e0e0e0;
+            background-color: #34495e;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            margin: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .button:hover {
+            background-color: #1abc9c;
+            transform: scale(1.05);
+        }
+
+        .button:active {
+            background-color: #16a085;
+            transform: scale(0.98);
+        }
+
+        .nav-links {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Clock Practice</h1>
+
+    <div class="container">
+        <!-- Displaying the clock image -->
+        <img id="clock-img" src="1208.jpg" alt="Clock" class="clock-img">
+        <div class="input-section">
+            <label for="user-answer">What time is it? (Format: HH:MM)</label><br>
+            <input type="text" id="user-answer" placeholder="Enter time here" />
+            <button onclick="checkAnswer()" class="button">Submit Answer</button>
+        </div>
+        <p id="feedback"></p>
+
+        <!-- Navigation links -->
+        <div class="nav-links">
+            <a href="index.html" class="button">Back to Home</a>
+            <a href="guide.html" class="button">Step-by-Step Guide</a>
+            <a href="examples.html" class="button">Clock Examples</a>
+        </div>
+    </div>
+
+    <script>
+        // Array of clocks with their corresponding times
+        const clocks = [
+            { image: '1208.jpg', time: '12:08' },
+            { image: '150.avif', time: '1:50' },
+            { image: '120.avif', time: '1:20' }  // This is the time range 1:20-1:21
+        ];
+
+        let currentClock = 0;
+
+        // Function to check the user's answer
+        function checkAnswer() {
+            const userAnswer = document.getElementById('user-answer').value.trim();
+            const correctAnswer = clocks[currentClock].time;
+
+            if (userAnswer === correctAnswer) {
+                document.getElementById('feedback').innerText = 'Correct! Great job!';
+                document.getElementById('user-answer').value = ''; // Clear the input field
+                currentClock++;
+                if (currentClock < clocks.length) {
+                    // Change clock image and update feedback
+                    document.getElementById('clock-img').src = clocks[currentClock].image;
+                    document.getElementById('feedback').innerText = '';
+                } else {
+                    // Reset back to the first clock for infinite loop
+                    currentClock = 0;
+                    document.getElementById('clock-img').src = clocks[currentClock].image;
+                    document.getElementById('feedback').innerText = 'Starting over. Try again!';
+                }
+            } else {
+                document.getElementById('feedback').innerText = 'Incorrect. Please try again.';
+            }
+        }
+    </script>
+</body>
+
+</html>
